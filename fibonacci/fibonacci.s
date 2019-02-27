@@ -3,7 +3,7 @@
 .fpu neon-fp-armv8
 
 .data @define constants
-prompt: .asciz "Which fibonacci number would you like to know?"
+prompt: .asciz "Which fibonacci number would you like to know?\n"
 entry: .asciz "%s"
 entry_storage: .asciz ""
 .extern printf
