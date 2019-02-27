@@ -3,7 +3,9 @@
 .fpu neon-fp-armv8
 
 .data @define constants
-prompt : .asciiz "Which fibonacci number would you like to know?"
+prompt: .asciz "Which fibonacci number would you like to know?"
+entry: .asciz "%s"
+entry_storage: .asciz ""
 .extern printf
 .extern scanf
 
@@ -18,8 +20,10 @@ main:
   mov r6, #1
   ldr r0, =prompt
   bl printf
+  ldr r0, =entry
+  ldr r1, =entry_storage
   bl scanf
-  mov r0, r4 @nth term
+  mov r4, r0 @nth term
   loop:
     sub r4, r4, #2
     cmp r4, #0
