@@ -1,27 +1,26 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-#include <string>
 #include "hangman.h"
 #include "wordGrabber.h"
+#define MAX_WORD_SIZE 80
+#define LOSE 7
+#define MAXLETTERS 26
 
 void beep();
 
 int main(int argc, char *argv[])
 {
-	const int MAX_WORD_SIZE = 80;
-	const int LOSE = 7;
-	const int MAXLETTERS = 26;
 	char word[MAX_WORD_SIZE];
 	char hangman[LOSE+1] = "HANGMAN";
 	char triedBin[MAXLETTERS];
 	char displayBin[MAX_WORD_SIZE];
         FILE *wordList;
 	int count, right, wrong, tried;
-	bool hit;
+	int hit;
 	char guess;
 
-	wordList = fopen("words.txt", "r");
+	wordList = fopen("dictionary.txt", "r");
 	count = getWord(wordList, word);
 
 	for (int i = 0; i < count; i++)
