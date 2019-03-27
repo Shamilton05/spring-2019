@@ -85,7 +85,7 @@ askcards_auto:
     str r8, [r5]              @ put result back into cpu[0] (total cpu card count in hand)
 
     ldr r8, [r3]              @ put number of cards at cpu array location into r8 to check for game over
-    cmp r8, #4                @ if number of cards in memory location is not 4 cards, game not over
+    cmp r8, #14                @ if number of cards in memory location is not 4 cards, game not over
     blt gameNotOver           @ branch to game not over
 
     b cpuWins                 @ branches to cpuWins if the total card count of that rank is >= 4
@@ -116,7 +116,7 @@ whileLoop2:
     add r3, r3, r5            @ r3 = address of cpu array + (i * 4)  ->  essentially updates to next array address
 
     ldr r8, [r3]              @ compares integer stored in address at array location with 4
-    cmp r8, #4                @ compare address in r3 with 4 to see if there are 4 total cards in that spot
+    cmp r8, #14                @ compare address in r3 with 4 to see if there are 4 total cards in that spot
     beq cpuWins               @ branch to end function if cpu wins
 
     add r9, r9, #1            @ ++i;

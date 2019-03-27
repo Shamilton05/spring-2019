@@ -68,7 +68,7 @@ askcards_man:
 
     @ check to see if player has 4 cards of the same rank, if yes, player wins return -> 1, if no return -> 0, then CPU turn
     ldr r8, [r3]           @ put integer stored in r3 into r8
-    cmp r8, #4             @ compare to 4 total for GoFishTest, if player or CPU gets 4 in a row, game is won
+    cmp r8, #14             @ compare to 4 total for GoFishTest, if player or CPU gets 4 in a row, game is won
     blt gameNotOver        @ player loses because branch if not equal
 
     b playerWon            @ go to playerWon, set return to 1
@@ -101,7 +101,7 @@ whileLoop:
     ldr r8, [r3]           @ examine integer at the array location
 
     @ check to see if player has 4 cards of that rank                  ????? is r3 address &player[i] or element player[i]  ???????
-    cmp r8, #4             @ compare r3 with #4 to see if player has 4 cards of any rank
+    cmp r8, #14             @ compare r3 with #4 to see if player has 4 cards of any rank
     bge playerWon          @ go to playerWon
 
     add r9, r9, #1         @ ++i;
