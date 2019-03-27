@@ -39,36 +39,39 @@ askcards_man:
     mov r3, #4             @ put #4 into r3 for multiple of 4 calculation
     mul r3, r3, r7         @ r3 = integer scanned into memory * 4 (to create multiple of 4)
     add r3, r3, r6         @ r3 = (integer * 4) + CPUarray address
-    ldr r2, [r3]           @ put integer stored at the r3 address into r2
-    cmp r2, #0             @ check to see if the CPU has any cards stored at the r3 address memory
+    ldr r0, [r3]           @ put integer stored at the r3 address into r2
+    mov r1, #2
+    bl modulo
+    ldr r2, [r3]
+    cmp r0, #0             @ check to see if the CPU has any cards stored at the r3 address memory
     beq gofish             @ if not, then Go Fish
 
     @ occurs if no Go Fish, hence CPU has cards in that memory location, remove cards from CPU, add
     @ to player card count for that rank
-    mov r1, #0             @ put 0 into r1       ******** change sub if only taking 1 card from that location
+    sub r1, r2, #1             @ put 0 into r1       ******** change sub if only taking 1 card from that location
     str r1, [r3]           @ store 0 into that CPU memory address to remove all cards
     mov r3, #4             @ put #4 into r3 for multiple of 4 calculation
     mul r3, r3, r7         @ r3 = integer scanned into memory * 4
-    add r3, r3, r5         @ r3 = (integer * 4) + playerArray address, accesses proper location
+    add r3, r3, #1         @ r3 = (integer * 4) + playerArray address, accesses proper location
 
     @ subtract total cards taken from cpu
     ldr r8, [r6]           @ put element cpu[0] (cpu total cards in hand) into r8
-    sub r8, r8, r2         @ r8 = cpu[0] (cpu cards in hand) - all cards from card rank storage location
+    sub r8, r8, #1         @ r8 = cpu[0] (cpu cards in hand) - all cards from card rank storage location
     str r8, [r6]           @ put result back into cpu[0] (cpu total cards in hand)
 
     @ update the count for that particular card rank in player deck with total number of cards (every card) taken from cpu for that rank
     ldr r8, [r3]           @ put element player[card rank storage location] into r8
-    add r8, r8, r2         @ r8 = player[card rank storage location] + number of cards taken from cpu
+    add r8, r8, #1         @ r8 = player[card rank storage location] + number of cards taken from cpu
     str r8, [r3]           @ put result back into player[card rank storage location]
 
     @ update total card count for player hand
     ldr r8, [r5]           @ put element player[0] into r8
-    add r8, r8, r2         @ increase r8 = player[0] + cards taken from cpu
+    add r8, r8, #1         @ increase r8 = player[0] + cards taken from cpu
     str r8, [r5]           @ put result back into player[0]
 
     @ check to see if player has 4 cards of the same rank, if yes, player wins return -> 1, if no return -> 0, then CPU turn
     ldr r8, [r3]           @ put integer stored in r3 into r8
-    cmp r8, #14             @ compare to 4 total for GoFishTest, if player or CPU gets 4 in a row, game is won
+    cmp r8, #4             @ compare to 4 total for GoFishTest, if player or CPU gets 4 in a row, game is won BRANCH TO CHECKWIN HERE
     blt gameNotOver        @ player loses because branch if not equal
 
     b playerWon            @ go to playerWon, set return to 1
@@ -101,7 +104,7 @@ whileLoop:
     ldr r8, [r3]           @ examine integer at the array location
 
     @ check to see if player has 4 cards of that rank                  ????? is r3 address &player[i] or element player[i]  ???????
-    cmp r8, #14             @ compare r3 with #4 to see if player has 4 cards of any rank
+    cmp r8, #4             @ compare r3 with #4 to see if player has 4 cards of any rank
     bge playerWon          @ go to playerWon
 
     add r9, r9, #1         @ ++i;

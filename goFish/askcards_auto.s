@@ -55,37 +55,39 @@ askcards_auto:
     mov r3, #4                @ mul operation requires number in register instead of immediate value
     mul r3, r7, r3            @ multiply (r3 = 4 * random number (1-13)))
     add r3, r3, r6            @ r3 = player array address
-    ldr r2, [r3]              @ place card count number in player array memory location into r2
-
-    cmp r2, #0                @ check to see if player array has any cards in that memory location
+    ldr r0, [r3]              @ place card count number in player array memory location into r2
+    mov r1, #2
+    bl modulo
+    ldr r2, [r3]
+    cmp r0, #0                @ check to see if player array has odd # of cards in that memory location
     beq cpuGoFish             @ if not, then go fish until card is chosen with memory location
 
     @ cpu chose a card in your deck so no Go Fish, cpu takes all your cards of that rank and places it in its deck
-    mov r1, #0                @ put 0 in r1
-    str r1, [r3]              @ store 0 in array address that r3 points to in player array, so zeroing out that particular rank
+    sub r1, r2, #1            @ put r2-1 in r1
+    str r1, [r3]              @ store r2-1 in array address that r3 points to in player array, so zeroing out that particular rank
 
     @ subtract cards taken from player total cards count
     ldr r8, [r6]              @ put element player[0] (total player hand count) into r8
-    sub r8, r8, r2            @ r8 = player[0] (total player hand count) + all cards taken from player of that rank
+    sub r8, r8, #1            @ r8 = player[0] (total player hand count) - 1
     str r8, [r6]              @ put result into player[0] (total player hand count)
 
     @ go back to same address in cpu array and add number of cards taken from player array to cpu array
     mov r3, #4                @ put 4 in r3
     mul r3, r3, r7            @ r3 = 4 * random number (1-13) for memory storage
-    add r3, r3, r5            @ r3 = (r * random number (1-13)) + address of cpu address
+    add r3, r3, #1            @ r3 = (r * random number (1-13)) + 1
     ldr r8, [r3]              @ put cpu[card rank location] into r8
 
     @ add count from player to cpu of same rank
-    add r8, r8, r2            @ r8 = cpu[card rank location] + all cards taken from player of that rank
+    add r8, r8, #1            @ r8 = cpu[card rank location] + all cards taken from player of that rank
     str r8, [r3]              @ put result back into cpu[card rank location]
 
     @ increase total count in cpu hand
     ldr r8, [r5]              @ put cpu[0] (total cpu card count in hand) into r8
-    add r8, r8, r2            @ r8 = cpu[0] (total cpu card count in hand) + all cards taken from player of that rank
+    add r8, r8, #1            @ r8 = cpu[0] (total cpu card count in hand) + all cards taken from player of that rank
     str r8, [r5]              @ put result back into cpu[0] (total cpu card count in hand)
 
     ldr r8, [r3]              @ put number of cards at cpu array location into r8 to check for game over
-    cmp r8, #14                @ if number of cards in memory location is not 4 cards, game not over
+    cmp r8, #4                @ if number of cards in memory location is not 4 cards, game not over BRANCH TO CHECKWIN FUNCTION HERE
     blt gameNotOver           @ branch to game not over
 
     b cpuWins                 @ branches to cpuWins if the total card count of that rank is >= 4
@@ -116,7 +118,7 @@ whileLoop2:
     add r3, r3, r5            @ r3 = address of cpu array + (i * 4)  ->  essentially updates to next array address
 
     ldr r8, [r3]              @ compares integer stored in address at array location with 4
-    cmp r8, #14                @ compare address in r3 with 4 to see if there are 4 total cards in that spot
+    cmp r8, #4                @ compare address in r3 with 4 to see if there are 4 total cards in that spot
     beq cpuWins               @ branch to end function if cpu wins
 
     add r9, r9, #1            @ ++i;

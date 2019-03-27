@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 
         if (winner==1)
         {
-            printf("\nCongratulations, you won the game!");
+            printf("\nCongratulations, you won the game!\n");
             break;
         }
         // have CPU ask player for a card based on random selection from its own deck, if player doesn't have a card, Go Fish for CPU
@@ -86,23 +86,36 @@ int main(int argc, char *argv[])
 // for FOR DEBUGGING
 void displayPlayerHand(int arr[])
 {
+	int count = 0;
         printf("player deck:  ");
         for (int i = 0; i < 14; ++i) {
             printf("%d ", arr[i]);
         }
         printf("\n");
+	for (int i = 0; i < 14; ++i)
+	{
+		if(arr[i]==2) count++;
+		if(arr[i]==4) count+=2;
+	}
+	printf("player matches %d\n", count);
 
 
 }
 
 void displayCPUHand(int arr[])
 {
-
+	int count = 0;
         printf("cpu deck:     ");
         for (int i = 0; i < 14; ++i) {
             printf("%d ", arr[i]);
         }
         printf("\n");
+	for (int i = 0; i < 14; ++i)
+	{
+		if(arr[i]==2) count++;
+		if(arr[i]==4) count+=2;
+	}
+	printf("cpu matches %d\n", count);
 
 
 }
