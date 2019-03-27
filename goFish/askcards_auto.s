@@ -74,7 +74,7 @@ askcards_auto:
     @ go back to same address in cpu array and add number of cards taken from player array to cpu array
     mov r3, #4                @ put 4 in r3
     mul r3, r3, r7            @ r3 = 4 * random number (1-13) for memory storage
-    add r3, r3, #1            @ r3 = (r * random number (1-13)) + 1
+    add r3, r3, r6            @ r3 = (r * random number (1-13)) + cpu[]
     ldr r8, [r3]              @ put cpu[card rank location] into r8
 
     @ add count from player to cpu of same rank

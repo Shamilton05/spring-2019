@@ -2,8 +2,9 @@
 .fpu neon-fp-armv8
 
 .data
-inp1: .asciz "Pick a card: "
+inp1: .asciz "Pick a card: \n"
 inp2: .asciz "%d"
+pickAgain: .asciz "You don't have any nonpairs of that rank.\n"
 out1: .asciz "Go Fish\n"
 
 .text
@@ -24,6 +25,7 @@ askcards_man:
     mov r6, r2             @ place address of CPUarray into r6
 
     @ Ask player to pick a card
+    pick:
     ldr r0, =inp1          @ load address of "Pick a card: " string into arg reg r0
     bl printf              @ display string
 
@@ -33,7 +35,19 @@ askcards_man:
     mov r1, sp             @ move address of memory spot into arg reg r1
     bl scanf               @ scan integer into memory
 
-    @ check to see if CPU has any cards of the type, if not Go Fish for player, if yes,
+    @ check to see if Player has odd number of cards of the type, if not
+    @loop back to pick a card
+    ldr r7, [sp]
+    mov r3, #4
+    mul r3, r3, r7
+    add r3, r3, r5
+    ldr r0, [r3]
+    mov r1, #2
+    bl modulo
+    cmp r0, #0
+    beq rePick
+
+    @ check to see if CPU has odd number cards of the type, if not Go Fish for player, if yes,
     @ card count removed from CPU and added to player
     ldr r7, [sp] @card selected   @ put integer scanned into memory at sp, into r7
     mov r3, #4             @ put #4 into r3 for multiple of 4 calculation
@@ -52,7 +66,7 @@ askcards_man:
     str r1, [r3]           @ store 0 into that CPU memory address to remove all cards
     mov r3, #4             @ put #4 into r3 for multiple of 4 calculation
     mul r3, r3, r7         @ r3 = integer scanned into memory * 4
-    add r3, r3, #1         @ r3 = (integer * 4) + playerArray address, accesses proper location
+    add r3, r3, r5         @ r3 = (integer * 4) + playerArray address, accesses proper location
 
     @ subtract total cards taken from cpu
     ldr r8, [r6]           @ put element cpu[0] (cpu total cards in hand) into r8
@@ -118,6 +132,11 @@ gameNotOver:
 playerWon:
     mov r0, #1             @ return value = 1
     b   endFunction
+
+rePick:
+    ldr r0, =pickAgain
+    bl printf
+    b pick
 
 endFunction:
     sub sp, fp, #4         @ place sp at -8 on stack
