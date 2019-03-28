@@ -19,8 +19,6 @@ checkwin:
 		add r2, r2, #4 @increment array index to point to arr[1]
 		pop {r1}
 		add r1, r1, #1 @incrememnt loop counter
-		cmp r0, #14
-		beq win
 		push {r1}
 		ldr r1, [r2]
 		cmp r1, #2
@@ -37,6 +35,8 @@ checkwin:
 	addOne:
 		add r0, r0, #1
 		pop {r1}	@pop counter from stack
+		cmp r0, #14
+		beq win
 		cmp r1, #13	@check for notWin
 		beq notWin
 		push {r1}
@@ -44,6 +44,8 @@ checkwin:
 	addTwo:
 		add r0, r0, #2
 		pop {r1}	@pop counter from stack
+		cmp r0, #14
+		beq win
 		cmp r1, #13	@check for notWin
 		beq notWin
 		push {r1}
