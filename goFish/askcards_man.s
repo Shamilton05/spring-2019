@@ -5,6 +5,7 @@
 inp1: .asciz "Pick a card: \n"
 inp2: .asciz "%d"
 pickAgain: .asciz "You don't have any nonpairs of that rank.\n"
+emptyHandResponse: .asciz "Your hand is empty.\n"
 out1: .asciz "Go Fish\n"
 
 .text
@@ -26,6 +27,10 @@ askcards_man:
 
     @ Ask player to pick a card
     pick:
+    mov r0, r5
+    bl checkEmptyHand      @ check if player hand is empty
+    cmp r0, #1             @ if empty, print message and go fish
+    beq emptyHand
     ldr r0, =inp1          @ load address of "Pick a card: " string into arg reg r0
     bl printf              @ display string
 
@@ -83,12 +88,12 @@ askcards_man:
     add r8, r8, #1         @ increase r8 = player[0] + cards taken from cpu
     str r8, [r5]           @ put result back into player[0]
 
-    @ check to see if player has 4 cards of the same rank, if yes, player wins return -> 1, if no return -> 0, then CPU turn
-    ldr r8, [r3]           @ put integer stored in r3 into r8
-    cmp r8, #4             @ compare to 4 total for GoFishTest, if player or CPU gets 4 in a row, game is won BRANCH TO CHECKWIN HERE
-    blt gameNotOver        @ player loses because branch if not equal
-
-    b playerWon            @ go to playerWon, set return to 1
+    @ check to see if player has 14 pairs, if yes, player wins return -> 1, if no return -> 0, then CPU turn
+    mov r0, r5             @ put address of player[] into r0 to pass to checkwin
+    bl checkwin            @ result placed in r0
+    cmp r0, #1             @ if r0==1 playerWon
+    beq playerWon
+    b gameNotOver          @ else gameNotOver
 
 @ player asked for a card that the CPU doesn't have, so player must choose next card on deck and
 @ add to his card count for that specific rank
@@ -102,11 +107,14 @@ gofish:
     mov r1, r5             @ put address of playerArray into arg reg r1
     bl draw                @ draw a random card and increase card count at proper location into playerArray
 
-    mov r9, #1             @ put 1 into r9 so r9 is acting as loop counter i here
-    b   whileLoop
+    mov r0, r5             @ put address of player[] into r0 to pass to checkwin
+    bl checkwin		   @ result placed in r0
+    cmp r0, #1		   @ if r0==1 playerWon
+    beq playerWon
+    b gameNotOver	   @ else gameNotOver
 
 
-@ checks to see if player has 4 cards of any rank for a win
+@ checks to see if player has 4 cards of any rank for a win MIGHT NOT BE NECESSARY ANYMORE
 whileLoop:
     cmp r9, #14            @ i < 14
     beq gameNotOver        @ game not over yet for player, so return 0 for player
@@ -137,6 +145,11 @@ rePick:
     ldr r0, =pickAgain
     bl printf
     b pick
+
+emptyHand:
+    ldr r0, =emptyHandResponse
+    bl printf
+    b gofish
 
 endFunction:
     sub sp, fp, #4         @ place sp at -8 on stack

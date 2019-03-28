@@ -2,8 +2,8 @@
 .fpu neon-fp-armv8
 
 .data
-output: .asciz "Go Fish\n"
-
+output: .asciz "Other player going fish.\n"
+emptyHandResponse: .asciz "Other player doesn't have any nonpairs of that rank.\n"
 .text
 
 .align 2
@@ -21,6 +21,11 @@ askcards_auto:
     mov r4, r0                @ place file pointer in r4
     mov r5, r1                @ place cpu array address in r5
     mov r6, r2                @ place player array address in r6
+
+    mov r0, r5
+    bl checkEmptyHand      @ check if player hand is empty
+    cmp r0, #1             @ if empty, print message and go fish
+    beq emptyHand
 
     mov r0, #0                @ place seed to randomize
     bl time
@@ -86,11 +91,12 @@ askcards_auto:
     add r8, r8, #1            @ r8 = cpu[0] (total cpu card count in hand) + all cards taken from player of that rank
     str r8, [r5]              @ put result back into cpu[0] (total cpu card count in hand)
 
-    ldr r8, [r3]              @ put number of cards at cpu array location into r8 to check for game over
-    cmp r8, #4                @ if number of cards in memory location is not 4 cards, game not over BRANCH TO CHECKWIN FUNCTION HERE
-    blt gameNotOver           @ branch to game not over
-
-    b cpuWins                 @ branches to cpuWins if the total card count of that rank is >= 4
+    @ check to see if player has 14 pairs, if yes, player wins return -> 1, if no return -> 0, then CPU turn
+    mov r0, r5             @ put address of player[] into r0 to pass to checkwin
+    bl checkwin            @ result placed in r0
+    cmp r0, #1             @ if r0==1 cpuWins
+    beq cpuWins
+    b gameNotOver          @ else gameNotOver
 
 @ cpu checked card from player based upon cards in cpu hand and player did not have any of those cards
 @ so cpu had to Go Fish, which means to draw a card in its own deck and increment number of cards at cpu
@@ -104,10 +110,13 @@ cpuGoFish:
     mov r1, r5                @ put cpu array address into r1
     bl draw                   @ draw another card and add to count at proper memory location in cpu array
 
-    mov r9, #1                @ i = 1;
-    b whileLoop2
+    mov r0, r5             @ put address of player[] into r0 to pass to checkwin
+    bl checkwin            @ result placed in r0
+    cmp r0, #1             @ if r0==1 cpuWins
+    beq cpuWins
+    b gameNotOver          @ else gameNotOver
 
-@ check to see if cpu array contains 4 cards of the same count
+@ check to see if cpu array contains 4 cards of the same count MIGHT NOT BE NECESSARY
 whileLoop2:
 
     cmp r9, #14               @ i < 14
@@ -132,6 +141,11 @@ gameNotOver:
 cpuWins:
     mov r0, #2                @ return 2 if CPU wins
     b   endFunction
+
+emptyHand:
+    ldr r0, =emptyHandResponse
+    bl printf
+    b cpuGoFish
 
 endFunction:
     sub sp, fp, #4            @ place sp at -8 on stack
