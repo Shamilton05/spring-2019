@@ -3,7 +3,7 @@
 
 .data
 output: .asciz "Other player going fish.\n"
-emptyHandResponse: .asciz "Other player doesn't have any nonpairs of that rank.\n"
+emptyHandResponse: .asciz "Other player's hand is empty.\n"
 .text
 
 .align 2
