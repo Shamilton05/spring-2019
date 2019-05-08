@@ -1,0 +1,146 @@
+player deck:  0 0 0 1 1 0 1 0 0 0 0 1 1 
+player matches 0
+cpu deck:     1000000010201
+player deck:  0 0 0 1 1 0 1 0 0 0 0 1 2 
+player matches 1
+cpu deck:     1000000010200
+player deck:  0 0 0 1 1 0 1 0 0 0 0 1 2 
+player matches 1
+cpu deck:     1000000010210
+player deck:  0 0 0 1 1 0 1 0 0 0 0 2 2 
+player matches 2
+cpu deck:     1000000010200
+player deck:  0 0 0 1 1 0 1 0 0 0 0 2 2 
+player matches 2
+cpu deck:     1000000110200
+player deck:  0 0 0 1 1 0 1 0 0 1 0 2 2 
+player matches 2
+cpu deck:     1000000110200
+player deck:  0 0 0 1 1 0 1 0 0 1 0 2 2 
+player matches 2
+cpu deck:     1000000110210
+player deck:  0 0 0 2 1 0 1 0 0 1 0 2 2 
+player matches 3
+cpu deck:     1000000110210
+player deck:  0 0 0 2 1 0 1 0 0 1 0 2 2 
+player matches 3
+cpu deck:     1100000110210
+player deck:  0 1 0 2 1 0 1 0 0 1 0 2 2 
+player matches 3
+cpu deck:     1100000110210
+player deck:  0 1 0 2 1 0 1 0 0 1 0 2 2 
+player matches 3
+cpu deck:     1100001110210
+player deck:  0 1 0 2 1 0 2 0 0 1 0 2 2 
+player matches 4
+cpu deck:     1100000110210
+player deck:  0 1 0 2 1 0 2 0 0 1 0 2 2 
+player matches 4
+cpu deck:     1100000110211
+player deck:  0 2 0 2 1 0 2 0 0 1 0 2 2 
+player matches 5
+cpu deck:     1000000110211
+player deck:  0 2 0 2 1 0 2 0 0 1 0 2 2 
+player matches 5
+cpu deck:     1010000110211
+player deck:  0 2 0 2 1 0 2 0 0 1 1 2 2 
+player matches 5
+cpu deck:     1010000110211
+player deck:  0 2 0 2 1 0 2 0 0 1 1 2 2 
+player matches 5
+cpu deck:     1010000210211
+player deck:  0 2 0 2 1 0 2 0 0 2 1 2 2 
+player matches 6
+cpu deck:     1010000210211
+player deck:  0 2 0 2 1 0 2 0 0 2 1 2 2 
+player matches 6
+cpu deck:     1010000210211
+player deck:  0 2 1 2 1 0 2 0 0 2 1 2 2 
+player matches 6
+cpu deck:     1010000210211
+player deck:  0 2 1 2 1 0 2 0 0 2 1 2 2 
+player matches 6
+cpu deck:     1010000210212
+player deck:  0 2 2 2 1 0 2 0 0 2 1 2 2 
+player matches 7
+cpu deck:     1000000210212
+player deck:  0 2 2 2 1 0 2 0 0 2 1 2 2 
+player matches 7
+cpu deck:     1100000210212
+player deck:  0 3 2 2 1 0 2 0 0 2 1 2 2 
+player matches 6
+cpu deck:     1100000210212
+player deck:  0 3 2 2 1 0 2 0 0 2 1 2 2 
+player matches 6
+cpu deck:     1100000210212
+player deck:  0 4 2 2 1 0 2 0 0 2 1 2 2 
+player matches 8
+cpu deck:     1000000210212
+player deck:  0 4 2 2 1 0 2 0 0 2 1 2 2 
+player matches 8
+cpu deck:     1000000210312
+player deck:  0 4 2 2 1 0 2 0 0 3 1 2 2 
+player matches 7
+cpu deck:     1000000210312
+player deck:  0 4 2 2 1 0 2 0 0 3 1 2 2 
+player matches 7
+cpu deck:     1000001210312
+player deck:  0 4 2 2 2 0 2 0 0 3 1 2 2 
+player matches 8
+cpu deck:     1000001210312
+player deck:  0 4 2 2 2 0 2 0 0 3 1 2 2 
+player matches 8
+cpu deck:     1000001210312
+player deck:  0 4 2 2 2 0 2 0 0 3 2 2 2 
+player matches 9
+cpu deck:     1000001210212
+player deck:  0 4 2 2 2 0 2 0 0 3 2 2 2 
+player matches 9
+cpu deck:     1000101210212
+player deck:  0 4 2 2 2 0 2 0 1 3 2 2 2 
+player matches 9
+cpu deck:     1000101210212
+player deck:  0 4 2 2 2 0 2 0 1 3 2 2 2 
+player matches 9
+cpu deck:     1000101210212
+player deck:  1 4 2 2 2 0 2 0 1 3 2 2 2 
+player matches 9
+cpu deck:     1000101210212
+player deck:  1 4 2 2 2 0 2 0 1 3 2 2 2 
+player matches 9
+cpu deck:     1000101310212
+player deck:  1 4 2 2 2 0 2 0 2 3 2 2 2 
+player matches 10
+cpu deck:     1000101300212
+player deck:  1 4 2 2 2 0 2 0 2 3 2 2 2 
+player matches 10
+cpu deck:     2000101300212
+player deck:  1 4 3 2 2 0 2 0 2 3 2 2 2 
+player matches 9
+cpu deck:     2000101300212
+player deck:  1 4 3 2 2 0 2 0 2 3 2 2 2 
+player matches 9
+cpu deck:     2010101300212
+player deck:  1 4 4 2 2 0 2 0 2 3 2 2 2 
+player matches 11
+cpu deck:     2000101300212
+player deck:  1 4 4 2 2 0 2 0 2 3 2 2 2 
+player matches 11
+cpu deck:     2000101300222
+player deck:  2 4 4 2 2 0 2 0 2 3 2 2 2 
+player matches 12
+cpu deck:     2000101300222
+player deck:  2 4 4 2 2 0 2 0 2 3 2 2 2 
+player matches 12
+cpu deck:     2000102300222
+player deck:  2 4 4 2 2 0 2 1 2 3 2 2 2 
+player matches 12
+cpu deck:     2000102300222
+player deck:  2 4 4 2 2 0 2 1 2 3 2 2 2 
+player matches 12
+cpu deck:     2000102301222
+player deck:  2 4 4 2 2 0 2 1 2 4 2 2 2 
+player matches 14
+cpu deck:     2000102300222
+
+Congratulations, you won the game!
