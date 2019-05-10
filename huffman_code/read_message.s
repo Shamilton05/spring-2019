@@ -28,7 +28,7 @@ read_message:
     @ r0 contains fptr, and r1 contains the address of the message
     @ refer to the visual representation in the video
     @ while(!feof(fp)) {
-    @   fscanf(fp, "%"c", &c);
+    @   fscanf(fp, "%c", &c);
     @   message[i]= c;
     @   i++;
     @} //the above code will be translated below
@@ -55,6 +55,9 @@ read_message:
 
         mov r1, #BYTE       @ put 1 into r1
         mul r1, r1, r10     @ r1 = i * 1
+
+        cmp r0, #32
+        movlt r0, #32
 
         strb r0, [r5, r1]   @ put char stored into r0 into message[i] array
 
