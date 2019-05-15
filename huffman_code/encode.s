@@ -153,7 +153,21 @@ encode:
             movne r7, #BITS_IN_INT @ reset 32-bits in total counter to 32 bits total
             moveq r7, #28
             @ send data code     ???? need to add lines of code here to send data ??????
-
+	    @r6 has int packet, push r0, r1, r2, r6 onto stack
+	    @call write(socket, address of int packet, 4)
+	    push {r0}
+	    push {r1}
+	    push {r2}
+	    push {r3}
+	    push {r6}
+	    mov r0, sp
+	    bl send_packet
+	    pop {r6}
+	    pop {r3}
+	    pop {r2}
+	    pop {r1}
+	    pop {r0}
+	    
 
             @ FOR DEBUGGING
             str r0, [sp, #-4]!

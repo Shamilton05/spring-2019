@@ -17,6 +17,7 @@ typedef struct{                 // typedef structure
 extern int read_huffman(FILE * fptr, huffcode hcode[]);
 extern int read_message(FILE * fptr, char message[]);
 extern int encode(char message[], huffcode hcode[]);
+int socket_fp;
 
 int main(int argc, char *argv[])
 {
@@ -40,10 +41,10 @@ int main(int argc, char *argv[])
     fclose(fptr);	// close message.txt
 
     // encode the message stored in the message[] array and send the message as an integer in 32 bit or less chunks
-    encode(message, hcode);
+   // encode(message, hcode);
 
     //set up socket
-    int socket_fp = socket(AF_INET, SOCK_STREAM, 0);
+    socket_fp = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in address;
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
@@ -52,11 +53,17 @@ int main(int argc, char *argv[])
 
     //connect
     connect(socket_fp, (struct sockaddr*) &server_address, sizeof(server_address));
+    encode(message, hcode);
+//    send(socket_fp, &message, messageLngth, 0);
+  //  char buffer[1000];
 
-    send(socket_fp, &message, messageLngth, 0);
-    char buffer[1000];
+   // int valread = read(socket_fp, buffer, 1000);
+   // printf("%d\n", valread);
+    close(socket_fp);
+}
 
-    int valread = read(socket_fp, buffer, 1000);
-    printf("%d\n", valread);
-
+void send_packet(int *packet_pntr)
+{
+	write(socket_fp, packet_pntr, 4);
+	return;
 }
