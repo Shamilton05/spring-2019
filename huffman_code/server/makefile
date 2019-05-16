@@ -1,5 +1,5 @@
-receive: server.o decoder.o read_huffman.o search_hcode.o check_space.o
-	        gcc -g -o receive server.o read_huffman.o decoder.o search_hcode.o check_space.o
+receive: server.o decoder.o read_huffman.o search_hcode.o check_space.o blinker.o
+	        gcc -g -o receive server.o read_huffman.o decoder.o search_hcode.o check_space.o blinker.o -lwiringPi
 
 server.o: server.c
 	        gcc -g -c server.c
@@ -15,3 +15,9 @@ check_space.o: ../check_space.s
 
 search_hcode.o: ../search_hcode.s
 		gcc -g -c ../search_hcode.s
+
+blinker.o: blinker.c
+	gcc -g -c blinker.c -lwiringPi
+
+clean:
+	rm -i *.o *~

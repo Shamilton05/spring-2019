@@ -237,18 +237,18 @@ encode:
 endFunction:
     @ send last data packet
     @ send data code     ???? need to add lines of code here to send data ??????
-    push {r0}
-    push {r1}
-    push {r2}
-    push {r3}
-    push {r6}
-    mov r0, sp
-    bl send_packet
-    pop {r6}
-    pop {r3}
-    pop {r2}
-    pop {r1}
-    pop {r0}
+   // push {r0}
+   // push {r1}
+   // push {r2}
+   // push {r3}
+   // push {r6}
+   // mov r0, sp
+   // bl send_packet
+   // pop {r6}
+   // pop {r3}
+   // pop {r2}
+   // pop {r1}
+   // pop {r0}
 
     mov r0, #0
     push {r0}

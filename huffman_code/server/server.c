@@ -15,7 +15,8 @@ typedef struct{                 // typedef structure
 extern time_t time(time_t *t);
 extern int read_huffman(FILE * fptr, huffcode hcode[]);
 extern int sort_hcode(huffcode hcode[]);                 //FOR DEBUGGING
-extern int decoder(int encoded_int, huffcode hcode[], int * current_char, char d_message[]);  // FOR DEBUGGING
+extern int decoder(int encoded_int, huffcode hcode[], int * current_char, char d_message[]);// FOR DEBUGGING
+extern int blink(char input);
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +27,7 @@ int main(int argc, char *argv[])
     int c_in=0;
     char message[10000];
     int valread;
+    int c, k;
 
     // if no file name arguments in main then open deck.dat to read the huffman code
          if (argc == 1){
@@ -58,12 +60,22 @@ int main(int argc, char *argv[])
     valread = read(new_socket, &code, sizeof(code));
     while (valread != 0)
     {
-    //receive
+    //blink lights
+    for (c = 31; c >= 0; c--)
+    {
+
+	    k = code >> c;
+	    if (k&1)
+		    blink('1');
+	    else
+		    blink('0');
+    }
     printf("%u\n", code);
     decoder(code, hcode, &c_in, message);
     valread = read(new_socket, &code, sizeof(code));
     }
 
+    printf("\n");
     printf(message);
     printf("\n");
     return 0;

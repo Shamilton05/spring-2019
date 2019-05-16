@@ -68,7 +68,7 @@ decoder:
         sub r2, r10, #1
         mov r0, r0, LSL r2         @ shift #1 to the same position as the bit to be examined in the integer packet
         AND r0, r0, r4             @ r0 = encoded integer packet with just the bit being examined with the rest of the bits as zeroes
-
+	
         cmp r3, #0
         movne r0, r0, LSL r3       @ r0 = current_int with all bits shifted to the left
 
