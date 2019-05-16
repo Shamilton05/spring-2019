@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons(PORT);
-    inet_pton(AF_INET, "127.0.0.1", &server_address.sin_addr);
+    inet_pton(AF_INET, "192.168.1.110", &server_address.sin_addr);
 
     //connect
     connect(socket_fp, (struct sockaddr*) &server_address, sizeof(server_address));

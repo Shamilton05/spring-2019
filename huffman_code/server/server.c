@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
     struct sockaddr_in address;
     huffcode hcode[29]; // array used to store huffman code
     unsigned int code; //store code from sender
-    int c_in;
+    int c_in=0;
     char message[10000];
-    time_t endwait;
+    int valread;
 
     // if no file name arguments in main then open deck.dat to read the huffman code
          if (argc == 1){
@@ -55,13 +55,13 @@ int main(int argc, char *argv[])
     //accept
     int new_socket = accept(socket_fp, (struct sockaddr *) &address, (socklen_t *) &addrlen);
 
-    endwait = time (NULL) + 10;
-    while (time (NULL) < endwait)
+    valread = read(new_socket, &code, sizeof(code));
+    while (valread != 0)
     {
     //receive
-    int valread = read(new_socket, &code, sizeof(code));
     printf("%u\n", code);
     decoder(code, hcode, &c_in, message);
+    valread = read(new_socket, &code, sizeof(code));
     }
 
     printf(message);
