@@ -18,7 +18,7 @@ int blink(char input)
 	}
 
 	printf("%c ", input);
-	if (input == 0)
+	if (input == '0')
 	{
 		pinMode(LedPin0, OUTPUT);
 		digitalWrite(LedPin0, LOW); //on
@@ -26,7 +26,7 @@ int blink(char input)
 		digitalWrite(LedPin0, HIGH); //off
 	        delay(50);
 	}
-	else if (input == 1)
+	else if (input == '1')
 	{
 		pinMode(LedPin1, OUTPUT);
 		digitalWrite(LedPin1, LOW); //on
